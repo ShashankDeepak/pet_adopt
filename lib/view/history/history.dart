@@ -29,7 +29,6 @@ class _HistoryState extends State<History> {
       buildWhen: (previous, current) => true,
       listener: (context, state) {
         if (state is HistoryItemsFetchedState) {
-          print("hello");
           setState(() {
             adoptedAnimals = List.of(state.listOfAdoptedPet);
           });

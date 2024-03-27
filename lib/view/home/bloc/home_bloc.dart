@@ -27,16 +27,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     var jsonString;
     if (prefs.containsKey("animals")) {
       jsonString = prefs.get("animals");
-      print(jsonString);
     } else {
       jsonString ??= await rootBundle.loadString('assets/animals.json');
       prefs.setString("animals", jsonEncode(jsonString));
     }
-    print(jsonString.runtimeType);
     final List<dynamic> jsonData = jsonDecode(jsonString!);
-    print(jsonString);
-    print("--------------------------");
-    print(jsonData.runtimeType);
 
     List<AnimalModal> animalModal = jsonData.map((j) {
       AnimalModal modal;
@@ -47,20 +42,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       return modal;
     }).toList();
-    print(animalModal);
     allAnimalModalsList = animalModal;
     List<AnimalModal> modals = [];
     for (int i = 0; i <= 3; i++) {
       modals.add(animalModal[i]);
     }
-    print(animalModal.length);
     emit(HomeClassLoadingAnimalSuccessState(
         animalModal: modals, allAnimals: animalModal));
   }
 
   FutureOr<void> categoryButtonClickedEvent(
       CategoryButtonClickedEvent event, Emitter<HomeState> emit) {
-    print("${event.categoryName} clicked");
     List<AnimalModal> animalModal = [];
     // print(event.animalModal.length);
     for (var modal in event.animalModal) {
@@ -75,7 +67,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> animaleCardClickedEvent(
       AnimaleCardClickedEvent event, Emitter<HomeState> emit) {
-    print("Animal card clicked");
     emit(HomeClassAnimalCardTapState(
         animalModal: event.animalModal, allAnimals: event.allAnimals));
   }
@@ -97,14 +88,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (text.isEmpty) {
       emit(HomeClassAnimalSearchState(list: ans, originalList: originalList));
     } else {
-      print(text);
       for (AnimalModal animal in originalList) {
         if (animal.name.toLowerCase().contains(text.toLowerCase())) {
           ans.add(animal);
         } else if (event.categoryName != "" &&
             animal.species == event.categoryName &&
             animal.name.toLowerCase().contains(text.toLowerCase())) {
-          print("---------sda---------------");
           ans.add(animal);
         }
       }

@@ -4,7 +4,6 @@ import 'package:adopt_pet/view/home/modals/animal_modal.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math' as math;
 
@@ -74,7 +73,6 @@ class _DetailsState extends State<Details> {
       buildWhen: (previous, current) => current is! DetailsActionState,
       listener: (context, state) {
         if (state is DetailsPetAdoptedState) {
-          print("Animal Adopted");
           setState(() {
             animalModal.isAdopted = true;
           });

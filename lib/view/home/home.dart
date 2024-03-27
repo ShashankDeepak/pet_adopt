@@ -26,15 +26,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     homeBloc.add(HomeIntialAnimalFetchEvent());
-    // homeBloc.add(PageButtonTappedEvent(
-    //     start: startIndex, end: endIndex, animalModal: temp));
-    // searchTextFieldEditingController.addListener(() {
-    //   if (searchTextFieldEditingController.text.isEmpty &&
-    //       categorySelected == "") {
-    //     print("hello");
-
-    //   }
-    // });
     super.initState();
   }
 
@@ -60,7 +51,6 @@ class _HomePageState extends State<HomePage> {
           is HomeActionState, //Listen when there is an HomeActionState is
       listener: (context, state) {
         if (state is HomeClassAnimalCardTapState) {
-          print("--------------------------------------------");
           // print();
           navigateToDetails(state.animalModal, allAnimalModalsList);
         } else if (state is HomeClassCategoryTapState) {
@@ -71,7 +61,6 @@ class _HomePageState extends State<HomePage> {
           });
         } else if (state is HomeClassAnimalSearchState) {
           print(state.list.length);
-          List<AnimalModal> list = state.originalList;
 
           setState(() {
             if (state.list.isNotEmpty) {
@@ -196,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                               ),
-                              contentPadding: EdgeInsets.all(10),
+                              contentPadding: const EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
@@ -525,14 +514,13 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           width: size.width,
                           child: Visibility(
-                            visible: categorySelected == "" ||
+                            visible: categorySelected == "" &&
                                 searchTextFieldEditingController.text == "",
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    double p = (temp.length / 4.0);
                                     if (pageNumber > 1) {
                                       homeBloc.add(PageButtonTappedEvent(
                                           start: startIndex - 4,

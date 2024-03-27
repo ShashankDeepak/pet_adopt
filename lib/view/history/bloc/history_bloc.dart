@@ -24,7 +24,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       String? jsonString = prefs.getString("animals");
       List<dynamic> jsonData = jsonDecode(jsonString!);
       List<AnimalModal> listOfAdoptedPet = [];
-      print(jsonData);
       jsonData.forEach((e) {
         AnimalModal modal = AnimalModal.fromJson(e);
         if (modal.isAdopted == true) {

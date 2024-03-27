@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       theme: lightMode,
       darkTheme: darkMode,
       routes: {
-        "/": (context) => HomePage(),
-        "/details": (context) => Details(),
-        "/history": (context) => History(),
+        "/": (context) => const HomePage(),
+        "/details": (context) => const Details(),
+        "/history": (context) => const History(),
       },
       // home: const HomePage(),
     );
