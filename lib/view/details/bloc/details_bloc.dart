@@ -31,9 +31,10 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
     print(allAnimalModal);
     var json = jsonEncode(allAnimalModal.map((e) => e.toJson()).toList());
     print("----------------------------------");
-    print(json);
 
-    prefs.setString("animals", json);
+    // print(json)
+    await prefs.setString("animals", json);
+    print(prefs.get("animals"));
     emit(DetailsPetAdoptedState());
   }
 

@@ -21,13 +21,12 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     if (!prefs.containsKey("animals")) {
       emit(HistoryItemsFetchedState(listOfAdoptedPet: const []));
     } else {
-      var jsonString = prefs.get("animals") as String;
-      List<dynamic> jsonData = jsonDecode(jsonString);
+      String? jsonString = prefs.getString("animals");
+      List<dynamic> jsonData = jsonDecode(jsonString!);
       List<AnimalModal> listOfAdoptedPet = [];
       print(jsonData);
       jsonData.forEach((e) {
-        AnimalModal modal =
-            AnimalModal.fromMap(jsonDecode(e) as Map<String, dynamic>);
+        AnimalModal modal = AnimalModal.fromJson(e);
         if (modal.isAdopted == true) {
           print("hello");
           print(modal);

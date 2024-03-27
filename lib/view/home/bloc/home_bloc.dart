@@ -26,25 +26,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     // prefs.clear();
     var jsonString;
     if (prefs.containsKey("animals")) {
-      print("hello78786y87");
-      jsonString = prefs.getString("animals");
-      print("2324" + jsonString);
+      jsonString = prefs.get("animals");
+      print(jsonString);
     } else {
       jsonString ??= await rootBundle.loadString('assets/animals.json');
-      prefs.setString("animals", jsonString);
+      prefs.setString("animals", jsonEncode(jsonString));
     }
+    print(jsonString.runtimeType);
     final List<dynamic> jsonData = jsonDecode(jsonString!);
     print(jsonString);
     print("--------------------------");
     print(jsonData.runtimeType);
 
     List<AnimalModal> animalModal = jsonData.map((j) {
-      AnimalModal modal =
-          AnimalModal.fromMap(jsonDecode(j) as Map<String, dynamic>);
+      AnimalModal modal;
+      if (j is String) {
+        modal = AnimalModal.fromMap(jsonDecode(j) as Map<String, dynamic>);
+      } else {
+        modal = AnimalModal.fromMap(j as Map<String, dynamic>);
+      }
       return modal;
     }).toList();
     print(animalModal);
-    allAnimalModalsList = List.of(animalModal);
+    allAnimalModalsList = animalModal;
     List<AnimalModal> modals = [];
     for (int i = 0; i <= 3; i++) {
       modals.add(animalModal[i]);
